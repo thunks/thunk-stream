@@ -1,0 +1,48 @@
+{
+  "name": "thunk-stream",
+  "description": "Wrap a readable/writable/duplex/transform stream to a thunk.",
+  "authors": [
+    "Yan Qing <admin@zensh.com>"
+  ],
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zensh/thunk-stream.git"
+  },
+  "homepage": "https://github.com/zensh/thunk-stream",
+  "keywords": [
+    "thunk",
+    "thunks",
+    "transform",
+    "stream",
+    "streams",
+    "callback",
+    "finish",
+    "close",
+    "end",
+    "wait"
+  ],
+  "dependencies": {
+    "thunks": "^1.3.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.5.6",
+    "gulp-jshint": "^1.8.4",
+    "gulp-mocha": "^1.0.0",
+    "gulp-sequence": "^0.1.0",
+    "mocha": "^1.21.0",
+    "should": "^4.0.4"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "benchmark",
+    "test",
+    "examples",
+    "gulpfile.js"
+  ]
+}
