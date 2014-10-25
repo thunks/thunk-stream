@@ -21,12 +21,16 @@ module.exports = function thunkStream(stream, options) {
 
     function onend() {
       removeListener();
-      callback();
+      process.nextTick(function () {
+        callback();
+      });
     }
 
     function onerror(error) {
       removeListener();
-      callback(error);
+      process.nextTick(function () {
+        callback(error);
+      });
     }
 
     function removeListener() {
@@ -40,10 +44,10 @@ module.exports = function thunkStream(stream, options) {
       stream.req.on('finish', onend);
     }
 
-    stream.on('error', onerror);
+    if (options.error !== false) stream.on('error', onerror);
 
     endEventTypes.forEach(function (type) {
-      stream.on(type, onend);
+      if (options[type] !== false) stream.on(type, onend);
     });
   });
 };

@@ -1,4 +1,4 @@
-thunk-stream v0.1.0 [![Build Status](https://travis-ci.org/zensh/thunk-stream.svg)](https://travis-ci.org/zensh/thunk-stream)
+thunk-stream v0.1.1 [![Build Status](https://travis-ci.org/zensh/thunk-stream.svg)](https://travis-ci.org/zensh/thunk-stream)
 ====
 Wrap a readable/writable/duplex/transform stream to a thunk.
 
