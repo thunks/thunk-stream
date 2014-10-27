@@ -6,6 +6,10 @@
 'use strict';
 var Thunk = require('thunks')();
 
+function forEach(obj, iterator) {
+  for (var i = 0, l = obj.length; i < l; i++) iterator(obj[i], i, obj);
+}
+
 module.exports = function thunkStream(stream, options) {
   options = options || {};
   var endEventTypes = ['end', 'finish', 'close'];
@@ -13,7 +17,7 @@ module.exports = function thunkStream(stream, options) {
 
   if (!Array.isArray(endEventType)) endEventType = [endEventType];
 
-  endEventType.forEach(function (type) {
+  forEach(endEventType, function (type) {
     if (type && typeof type === 'string' && endEventTypes.indexOf(type) < 0) endEventTypes.push(type);
   });
 
@@ -35,18 +39,13 @@ module.exports = function thunkStream(stream, options) {
 
     function removeListener() {
       stream.removeListener('error', onerror);
-      endEventTypes.forEach(function (type) {
+      forEach(endEventTypes, function (type) {
         stream.removeListener(type, onend);
       });
     }
 
-    function onrequest() {
-      stream.req.on('finish', onend);
-    }
-
     if (options.error !== false) stream.on('error', onerror);
-
-    endEventTypes.forEach(function (type) {
+    forEach(endEventTypes, function (type) {
       if (options[type] !== false) stream.on(type, onend);
     });
   });
