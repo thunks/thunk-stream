@@ -45,13 +45,40 @@ Return a thunk function.
 
 #### stream
 
-*Required*
-Type: `stream`, readable/writable/duplex/transform stream.
+*Required*, Type: `stream`, readable/writable/duplex/transform stream.
 
 #### options.endEventType
 
-*Option*
-Type: `String` or `Array`
+*Optional*, Type: `String` or `Array`
 
-Appoint one or more event types to delegate the stream end. In built end event types: `['end', 'finish', 'close']`.
-```
+Appoint one or more event types to delegate the stream end. In built end event types: `['end', 'finish', 'close', 'error']`.
+
+#### options.error
+
+*Optional*, Type: `Boolean`
+
+If `true`, ignore `error` event for stream end.
+
+#### options.end
+
+*Optional*, Type: `Boolean`
+
+If `true`, ignore `end` event for stream end.
+
+#### options.finish
+
+*Optional*, Type: `Boolean`
+
+If `true`, ignore `finish` event for stream end.
+
+#### options.close
+
+*Optional*, Type: `Boolean`
+
+If `true`, ignore `close` event for stream end.
+
+#### options[eventType]
+
+*Optional*, Type: `Boolean`
+
+If `true`, ignore `eventType` event for stream end.
