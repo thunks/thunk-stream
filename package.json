@@ -4,13 +4,13 @@
   "authors": [
     "Yan Qing <admin@zensh.com>"
   ],
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:zensh/thunk-stream.git"
+    "url": "git@github.com:thunks/thunk-stream.git"
   },
-  "homepage": "https://github.com/zensh/thunk-stream",
+  "homepage": "https://github.com/thunks/thunk-stream",
   "keywords": [
     "thunk",
     "thunks",
