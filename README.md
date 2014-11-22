@@ -1,9 +1,8 @@
-thunk-stream v0.1.4 [![Build Status](https://travis-ci.org/thunks/thunk-stream.svg)](https://travis-ci.org/thunks/thunk-stream)
+thunk-stream v0.1.5 [![Build Status](https://travis-ci.org/thunks/thunk-stream.svg)](https://travis-ci.org/thunks/thunk-stream)
 ====
 Wrap a readable/writable/duplex/transform stream to a thunk.
 
-## [thunks](https://github.com/teambition/thunks)
-
+## [thunks](https://github.com/thunks/thunks)
 
 ## Demo
 

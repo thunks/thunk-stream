@@ -1,9 +1,8 @@
-// **Github:** https://github.com/zensh/thunk-stream
+'use strict';
+// **Github:** https://github.com/thunks/thunk-stream
 //
 // **License:** MIT
 
-/* global module, define */
-'use strict';
 var Thunk = require('thunks')();
 
 function forEach(obj, iterator) {
