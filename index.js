@@ -24,14 +24,12 @@ module.exports = function thunkStream(stream, options) {
 
     function onend() {
       removeListener();
-      process.nextTick(function () {
-        callback();
-      });
+      Thunk.delay(0)(callback);
     }
 
     function onerror(error) {
       removeListener();
-      process.nextTick(function () {
+      Thunk.delay(0)(function () {
         callback(error);
       });
     }
