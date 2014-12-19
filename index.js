@@ -20,7 +20,7 @@ module.exports = function thunkStream(stream, options) {
     if (type && typeof type === 'string' && endEventTypes.indexOf(type) < 0) endEventTypes.push(type);
   });
 
-  return Thunk(function (callback) {
+  return Thunk.call(this, function (callback) {
 
     function onend() {
       removeListener();
