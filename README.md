@@ -1,6 +1,9 @@
-thunk-stream v0.2.1 [![Build Status](https://travis-ci.org/thunks/thunk-stream.svg)](https://travis-ci.org/thunks/thunk-stream)
+thunk-stream
 ====
 Wrap a readable/writable/duplex/transform stream to a thunk.
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
 
 ## [thunks](https://github.com/thunks/thunks)
 
@@ -81,3 +84,9 @@ If `true`, ignore `close` event for stream end.
 *Optional*, Type: `Boolean`
 
 If `true`, ignore `eventType` event for stream end.
+
+[npm-url]: https://npmjs.org/package/thunk-stream
+[npm-image]: http://img.shields.io/npm/v/thunk-stream.svg
+
+[travis-url]: https://travis-ci.org/thunks/thunk-stream
+[travis-image]: http://img.shields.io/travis/thunks/thunk-stream.svg
