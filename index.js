@@ -4,6 +4,7 @@
 // **License:** MIT
 
 var Thunk = require('thunks')();
+var defaultEndEventTypes = ['end', 'finish', 'close'];
 
 function forEach(obj, iterator) {
   for (var i = 0, l = obj.length; i < l; i++) iterator(obj[i], i, obj);
@@ -11,16 +12,11 @@ function forEach(obj, iterator) {
 
 module.exports = function thunkStream(stream, options) {
   options = options || {};
-  var endEventTypes = ['end', 'finish', 'close'];
-  var endEventType = options.endEventType || [];
-
-  if (!Array.isArray(endEventType)) endEventType = [endEventType];
-
-  forEach(endEventType, function (type) {
-    if (type && typeof type === 'string' && endEventTypes.indexOf(type) < 0) endEventTypes.push(type);
-  });
 
   return Thunk.call(this, function (callback) {
+    var flags = Object.create(null);
+    var endEventTypes = [];
+    var endEventType = options.endEventType;
 
     function onend() {
       removeListener();
@@ -41,9 +37,20 @@ module.exports = function thunkStream(stream, options) {
       });
     }
 
+    function addListener(type) {
+      flags[type] = true;
+      endEventTypes.push(type);
+      stream.on(type, onend);
+    }
+
     if (options.error !== false) stream.on('error', onerror);
-    forEach(endEventTypes, function (type) {
-      if (options[type] !== false) stream.on(type, onend);
+    forEach(defaultEndEventTypes, function (type) {
+      if (options[type] !== false) addListener(type);
+    });
+
+    if (!endEventType) return;
+    forEach(Array.isArray(endEventType) ? endEventType : [endEventType], function (type) {
+      if (!flags[type] && options[type] !== false) addListener(type);
     });
   });
 };
