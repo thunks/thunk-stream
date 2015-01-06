@@ -32,12 +32,14 @@ module.exports = function thunkStream(stream, options) {
     }
 
     function removeListener() {
-      if (clear) return;
-      clear = true;
-      stream.removeListener('error', onerror);
-      forEach(endEventTypes, function (type) {
-        stream.removeListener(type, onend);
-      });
+      if (!clear) {
+        clear = true;
+        stream.removeListener('error', onerror);
+        forEach(endEventTypes, function (type) {
+          stream.removeListener(type, onend);
+        });
+      }
+      return clear;
     }
 
     function addListener(type) {

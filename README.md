@@ -87,7 +87,7 @@ If `true`, ignore `eventType` event for stream end.
 
 ### thunk.clearListeners()
 
-After thunk is called, `clearListeners` is added that can remove all listeners  added to stream by `thunkStream`.
+After thunk is called, `clearListeners` is added that can remove all listeners  added to stream by `thunkStream`. if listeners has been removed already, it return `false`, else return `true`.
 
 
 [npm-url]: https://npmjs.org/package/thunk-stream
