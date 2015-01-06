@@ -68,4 +68,29 @@ describe('thunk-stream', function () {
     readableStream.pipe(writableStream);
   });
 
+  it('thunkStream(writableStream).clearListeners()', function (done) {
+    var readableStream = fs.createReadStream('index.js');
+    var writableStream = new stream.Writable();
+
+    writableStream._write = function(chunk, encoding, cb) {
+      cb(null, chunk);
+    };
+
+    thunkStream(readableStream)(function (error) {
+      should(error).be.equal(null);
+      should(readableStream.closed).be.equal(true);
+    });
+
+    var thunk = thunkStream(writableStream);
+    // clearListeners is add after thunk called.
+    should(thunk.clearListeners).be.equal(undefined);
+    thunk(function (error) {
+      should('This should not run!').be.equal(true);
+    });
+    thunk.clearListeners();
+    writableStream.on('finish', done);
+
+    readableStream.pipe(writableStream);
+  });
+
 });

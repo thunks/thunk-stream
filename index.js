@@ -13,7 +13,8 @@ function forEach(obj, iterator) {
 module.exports = function thunkStream(stream, options) {
   options = options || {};
 
-  return Thunk.call(this, function (callback) {
+  var thunk = Thunk.call(this, function (callback) {
+    var clear = false;
     var flags = Object.create(null);
     var endEventTypes = [];
     var endEventType = options.endEventType;
@@ -31,6 +32,8 @@ module.exports = function thunkStream(stream, options) {
     }
 
     function removeListener() {
+      if (clear) return;
+      clear = true;
       stream.removeListener('error', onerror);
       forEach(endEventTypes, function (type) {
         stream.removeListener(type, onend);
@@ -43,6 +46,7 @@ module.exports = function thunkStream(stream, options) {
       stream.on(type, onend);
     }
 
+    thunk.clearListeners = removeListener;
     if (options.error !== false) stream.on('error', onerror);
     forEach(defaultEndEventTypes, function (type) {
       if (options[type] !== false) addListener(type);
@@ -53,4 +57,5 @@ module.exports = function thunkStream(stream, options) {
       if (!flags[type] && options[type] !== false) addListener(type);
     });
   });
+  return thunk;
 };
