@@ -49,6 +49,10 @@ module.exports = function thunkStream(stream, options) {
     }
 
     thunk.clearListeners = removeListener;
+
+    if (stream._readableState && stream._readableState.endEmitted) return onend();
+    if (stream._writableState && (stream._writableState.finished || stream._writableState.ended)) return onend();
+
     if (options.error !== false) stream.on('error', onerror);
     forEach(defaultEndEventTypes, function (type) {
       if (options[type] !== false) addListener(type);
