@@ -3,7 +3,7 @@
 //
 // **License:** MIT
 
-var Thunk = require('thunks')();
+var thunk = require('thunks')();
 var defaultEndEventTypes = ['end', 'finish', 'close'];
 
 function forEach(obj, iterator) {
@@ -13,7 +13,7 @@ function forEach(obj, iterator) {
 module.exports = function thunkStream(stream, options) {
   options = options || {};
 
-  var thunk = Thunk.call(this, function (callback) {
+  var resultThunk = thunk.call(this, function (callback) {
     var clear = false;
     var flags = Object.create(null);
     var endEventTypes = [];
@@ -21,12 +21,12 @@ module.exports = function thunkStream(stream, options) {
 
     function onend() {
       removeListener();
-      Thunk.delay(0)(callback);
+      thunk.delay(0)(callback);
     }
 
     function onerror(error) {
       removeListener();
-      Thunk.delay(0)(function () {
+      thunk.delay(0)(function () {
         callback(error);
       });
     }
@@ -48,7 +48,7 @@ module.exports = function thunkStream(stream, options) {
       stream.on(type, onend);
     }
 
-    thunk.clearListeners = removeListener;
+    resultThunk.clearListeners = removeListener;
 
     if (stream._readableState && stream._readableState.endEmitted) return onend();
     if (stream._writableState && (stream._writableState.finished || stream._writableState.ended)) return onend();
@@ -63,5 +63,5 @@ module.exports = function thunkStream(stream, options) {
       if (!flags[type] && options[type] !== false) addListener(type);
     });
   });
-  return thunk;
+  return resultThunk;
 };
