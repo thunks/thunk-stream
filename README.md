@@ -10,23 +10,23 @@ Wrap a readable/writable/duplex/transform stream to a thunk.
 ## Demo
 
 ```js
-var thunkStream = require('thunk-stream'),
-  stream = require('stream'),
-  fs = require('fs');
+var thunkStream = require('thunk-stream')
+var stream = require('stream')
+var fs = require('fs')
 
-var readableStream = fs.createReadStream('index.js');
-var passStream = new stream.PassThrough();
+var readableStream = fs.createReadStream('index.js')
+var passStream = new stream.PassThrough()
 
 thunkStream(readableStream)(function (error) {
-  if (error) console.error('error', error);
+  if (error) console.error('error', error)
   else console.log('read file end.')
-});
+})
 
 thunkStream(passStream)(function (error) {
   console.log('file pass through finished.')
-});
+})
 
-readableStream.pipe(passStream);
+readableStream.pipe(passStream)
 ```
 
 ## Installation
@@ -38,7 +38,7 @@ npm install thunk-stream
 ## API
 
 ```js
-var thunkStream = require('thunk-stream');
+var thunkStream = require('thunk-stream')
 ```
 
 ### thunkStream(stream[, options])
@@ -88,7 +88,6 @@ If `true`, ignore `eventType` event for stream end.
 ### thunk.clearListeners()
 
 After thunk is called, `clearListeners` is added that can remove all listeners  added to stream by `thunkStream`. if listeners has been removed already, it return `false`, else return `true`.
-
 
 [npm-url]: https://npmjs.org/package/thunk-stream
 [npm-image]: http://img.shields.io/npm/v/thunk-stream.svg
