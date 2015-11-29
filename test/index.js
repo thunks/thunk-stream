@@ -37,7 +37,7 @@ describe('thunk-stream', function () {
       should(readableStream.destroyed).be.equal(true)
     })(done)
 
-    thunkStream(passStream)(function (error) {
+    thunkStream(passStream)(function (_) {
       should('this function will not run').be.equal('')
     })
 
@@ -84,7 +84,7 @@ describe('thunk-stream', function () {
     var thunk = thunkStream(writableStream)
     // clearListeners is add after thunk called.
     should(thunk.clearListeners).be.equal(undefined)
-    thunk(function (error) {
+    thunk(function (_) {
       should('This should not run!').be.equal(true)
     })
     thunk.clearListeners()
@@ -92,5 +92,4 @@ describe('thunk-stream', function () {
 
     readableStream.pipe(writableStream)
   })
-
 })
