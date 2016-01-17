@@ -1,7 +1,7 @@
 'use strict'
 /* global describe, it */
 
-var should = require('should')
+var assert = require('assert')
 var thunkStream = require('../index.js')
 var stream = require('stream')
 var fs = require('fs')
@@ -14,15 +14,15 @@ describe('thunk-stream', function () {
     var readableStreamEnded = false
 
     thunkStream(readableStream)(function (error) {
-      should(error).be.equal(null)
-      should(readableStream.closed).be.equal(true)
-      should(readableStreamEnded).be.equal(false)
+      assert.strictEqual(error, null)
+      assert.strictEqual(readableStream.closed, true)
+      assert.strictEqual(readableStreamEnded, false)
       readableStreamEnded = true
     })
 
     thunkStream(passStream)(function (error) {
-      should(error).be.equal(null)
-      should(readableStreamEnded).be.equal(true)
+      assert.strictEqual(error, null)
+      assert.strictEqual(readableStreamEnded, true)
     })(done)
 
     readableStream.pipe(passStream)
@@ -33,12 +33,12 @@ describe('thunk-stream', function () {
     var passStream = new stream.PassThrough()
 
     thunkStream(readableStream)(function (error) {
-      should(error).be.instanceOf(Error)
-      should(readableStream.destroyed).be.equal(true)
+      assert.strictEqual(error instanceof Error, true)
+      assert.strictEqual(readableStream.destroyed, true)
     })(done)
 
     thunkStream(passStream)(function (_) {
-      should('this function will not run').be.equal('')
+      assert.strictEqual('this function will not run', '')
     })
 
     readableStream.pipe(passStream)
@@ -54,15 +54,15 @@ describe('thunk-stream', function () {
     }
 
     thunkStream(readableStream)(function (error) {
-      should(error).be.equal(null)
-      should(readableStream.closed).be.equal(true)
-      should(readableStreamEnded).be.equal(false)
+      assert.strictEqual(error, null)
+      assert.strictEqual(readableStream.closed, true)
+      assert.strictEqual(readableStreamEnded, false)
       readableStreamEnded = true
     })
 
     thunkStream(writableStream)(function (error) {
-      should(error).be.equal(null)
-      should(readableStreamEnded).be.equal(true)
+      assert.strictEqual(error, null)
+      assert.strictEqual(readableStreamEnded, true)
     })(done)
 
     readableStream.pipe(writableStream)
@@ -77,15 +77,15 @@ describe('thunk-stream', function () {
     }
 
     thunkStream(readableStream)(function (error) {
-      should(error).be.equal(null)
-      should(readableStream.closed).be.equal(true)
+      assert.strictEqual(error, null)
+      assert.strictEqual(readableStream.closed, true)
     })
 
     var thunk = thunkStream(writableStream)
     // clearListeners is add after thunk called.
-    should(thunk.clearListeners).be.equal(undefined)
+    assert.strictEqual(thunk.clearListeners, undefined)
     thunk(function (_) {
-      should('This should not run!').be.equal(true)
+      assert.strictEqual('This should not run!', true)
     })
     thunk.clearListeners()
     writableStream.on('finish', done)
