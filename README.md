@@ -4,6 +4,7 @@ Wrap a readable/writable/duplex/transform stream to a thunk.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Downloads][downloads-image]][downloads-url]
 
 ## [thunks](https://github.com/thunks/thunks)
 
@@ -94,3 +95,6 @@ After thunk is called, `clearListeners` is added that can remove all listeners  
 
 [travis-url]: https://travis-ci.org/thunks/thunk-stream
 [travis-image]: http://img.shields.io/travis/thunks/thunk-stream.svg
+
+[downloads-url]: https://npmjs.org/package/thunk-stream
+[downloads-image]: http://img.shields.io/npm/dm/thunk-stream.svg?style=flat-square
