@@ -21,12 +21,12 @@ module.exports = function thunkStream (stream, options) {
 
     function onend () {
       removeListener()
-      thunk.delay(0)(callback)
+      thunk.delay()(callback)
     }
 
     function onerror (error) {
       removeListener()
-      thunk.delay(0)(function () {
+      thunk.delay()(function () {
         callback(error)
       })
     }
