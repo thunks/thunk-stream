@@ -3,21 +3,21 @@
 //
 // **License:** MIT
 
-var thunk = require('thunks')()
-var defaultEndEventTypes = ['end', 'finish', 'close']
+const thunk = require('thunks')()
+const defaultEndEventTypes = ['end', 'finish', 'close']
 
 function forEach (obj, iterator) {
-  for (var i = 0, l = obj.length; i < l; i++) iterator(obj[i], i, obj)
+  for (let i = 0, l = obj.length; i < l; i++) iterator(obj[i], i, obj)
 }
 
 module.exports = function thunkStream (stream, options) {
   options = options || {}
 
-  var resultThunk = thunk.call(this, function (callback) {
-    var clear = false
-    var flags = Object.create(null)
-    var endEventTypes = []
-    var endEventType = options.endEventType
+  const resultThunk = thunk.call(this, function (callback) {
+    const flags = Object.create(null)
+    const endEventTypes = []
+    const endEventType = options.endEventType
+    let clear = false
 
     function onend () {
       removeListener()

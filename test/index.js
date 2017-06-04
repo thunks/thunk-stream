@@ -1,17 +1,17 @@
 'use strict'
-/* global describe, it */
 
-var assert = require('assert')
-var thunkStream = require('../index.js')
-var stream = require('stream')
-var fs = require('fs')
+const assert = require('assert')
+const thunkStream = require('../index.js')
+const stream = require('stream')
+const fs = require('fs')
+const tman = require('tman')
 
-describe('thunk-stream', function () {
-  it('thunkStream(readableStream) success', function (done) {
-    var readableStream = fs.createReadStream('index.js')
-    var passStream = new stream.PassThrough()
+tman.suite('thunk-stream', function () {
+  tman.it('thunkStream(readableStream) success', function (done) {
+    let readableStream = fs.createReadStream('index.js')
+    let passStream = new stream.PassThrough()
 
-    var readableStreamEnded = false
+    let readableStreamEnded = false
 
     thunkStream(readableStream)(function (error) {
       assert.strictEqual(error, null)
@@ -28,9 +28,9 @@ describe('thunk-stream', function () {
     readableStream.pipe(passStream)
   })
 
-  it('thunkStream(readableStream) error', function (done) {
-    var readableStream = fs.createReadStream('none.js')
-    var passStream = new stream.PassThrough()
+  tman.it('thunkStream(readableStream) error', function (done) {
+    let readableStream = fs.createReadStream('none.js')
+    let passStream = new stream.PassThrough()
 
     thunkStream(readableStream)(function (error) {
       assert.strictEqual(error instanceof Error, true)
@@ -44,10 +44,10 @@ describe('thunk-stream', function () {
     readableStream.pipe(passStream)
   })
 
-  it('thunkStream(writableStream) success', function (done) {
-    var readableStream = fs.createReadStream('index.js')
-    var writableStream = new stream.Writable()
-    var readableStreamEnded = false
+  tman.it('thunkStream(writableStream) success', function (done) {
+    let readableStream = fs.createReadStream('index.js')
+    let writableStream = new stream.Writable()
+    let readableStreamEnded = false
 
     writableStream._write = function (chunk, encoding, cb) {
       cb(null, chunk)
@@ -68,9 +68,9 @@ describe('thunk-stream', function () {
     readableStream.pipe(writableStream)
   })
 
-  it('thunkStream(writableStream).clearListeners()', function (done) {
-    var readableStream = fs.createReadStream('index.js')
-    var writableStream = new stream.Writable()
+  tman.it('thunkStream(writableStream).clearListeners()', function (done) {
+    let readableStream = fs.createReadStream('index.js')
+    let writableStream = new stream.Writable()
 
     writableStream._write = function (chunk, encoding, cb) {
       cb(null, chunk)
@@ -81,7 +81,7 @@ describe('thunk-stream', function () {
       assert.strictEqual(readableStream.closed, true)
     })
 
-    var thunk = thunkStream(writableStream)
+    let thunk = thunkStream(writableStream)
     // clearListeners is add after thunk called.
     assert.strictEqual(thunk.clearListeners, undefined)
     thunk(function (_) {

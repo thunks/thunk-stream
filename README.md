@@ -1,5 +1,5 @@
-thunk-stream
-====
+# thunk-stream
+
 Wrap a readable/writable/duplex/transform stream to a thunk.
 
 [![NPM version][npm-image]][npm-url]
@@ -11,12 +11,12 @@ Wrap a readable/writable/duplex/transform stream to a thunk.
 ## Demo
 
 ```js
-var thunkStream = require('thunk-stream')
-var stream = require('stream')
-var fs = require('fs')
+const thunkStream = require('thunk-stream')
+const stream = require('stream')
+const fs = require('fs')
 
-var readableStream = fs.createReadStream('index.js')
-var passStream = new stream.PassThrough()
+const readableStream = fs.createReadStream('index.js')
+const passStream = new stream.PassThrough()
 
 thunkStream(readableStream)(function (error) {
   if (error) console.error('error', error)
@@ -39,7 +39,7 @@ npm install thunk-stream
 ## API
 
 ```js
-var thunkStream = require('thunk-stream')
+const thunkStream = require('thunk-stream')
 ```
 
 ### thunkStream(stream[, options])
